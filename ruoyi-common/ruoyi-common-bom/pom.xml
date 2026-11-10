@@ -187,6 +187,12 @@
                 <version>${revision}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.dromara</groupId>
+                <artifactId>ruoyi-common-shardingsphere</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

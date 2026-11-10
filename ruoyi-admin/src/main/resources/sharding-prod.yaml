@@ -1,0 +1,83 @@
+databaseName: phone_msg_logic
+
+mode:
+  type: Standalone
+  repository:
+    type: JDBC
+
+dataSources:
+  ds0:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:33061/demo_ds_0?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: admin123
+  ds1:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:33061/demo_ds_1?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: admin123
+  ds2:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:33061/demo_ds_2?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: admin123
+  ds3:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:33062/demo_ds_0?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: admin123
+  ds4:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:33062/demo_ds_1?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: admin123
+  ds5:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:33062/demo_ds_2?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: admin123
+rules:
+  - !SHARDING
+    tables:
+      t_phone_msg:
+        # 6个数据库，每个数据库4张表
+        actualDataNodes: 'ds$->{0..5}.t_phone_msg_$->{0..3}'
+        # 分库策略
+        databaseStrategy:
+          standard:
+            shardingColumn: phone
+            shardingAlgorithmName: phone_msg_database
+        # 分表策略
+        tableStrategy:
+          standard:
+            shardingColumn: phone
+            shardingAlgorithmName: phone_msg_table
+    # 分片算法
+    shardingAlgorithms:
+      # 6个数据库
+      phone_msg_database:
+        type: INLINE
+        props:
+          algorithm-expression: 'ds$->{phone.intdiv(10000) % 10000 % 6}'
+      # 每个数据库4张表
+      phone_msg_table:
+        type: INLINE
+        props:
+          algorithm-expression: 't_phone_msg_$->{(phone % 10000) % 4}'
+props:
+  sql-show: true
+
+
+
+
+
+
+
+
+

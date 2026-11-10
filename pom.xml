@@ -33,6 +33,7 @@
         <anyline.version>17.7.6-20261020</anyline.version>
         <easy-es.version>3.0.2</easy-es.version>
         <elasticsearch-client.version>7.17.28</elasticsearch-client.version>
+        <shardingsphere.version>5.5.3</shardingsphere.version>
 
         <!-- 安全认证与加密相关依赖版本 -->
         <satoken.version>1.46.0</satoken.version>
@@ -171,6 +172,51 @@
                 <version>${revision}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.dromara</groupId>
+                <artifactId>ruoyi-module-bom</artifactId>
+                <version>${revision}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- 分库分表组件 -->
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-jdbc</artifactId>
+                <version>${shardingsphere.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-infra-url-classpath</artifactId>
+                <version>${shardingsphere.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-sharding-core</artifactId>
+                <version>${shardingsphere.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-jdbc-dialect-mysql</artifactId>
+                <version>${shardingsphere.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-infra-data-source-pool-hikari</artifactId>
+                <version>${shardingsphere.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-standalone-mode-repository-jdbc</artifactId>
+                <version>${shardingsphere.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-authority-simple</artifactId>
+                <version>${shardingsphere.version}</version>
             </dependency>
 
             <!-- 接口文档 -->
@@ -417,46 +463,12 @@
                 <version>${ip2region.version}</version>
             </dependency>
 
-            <!-- 系统模块 -->
             <dependency>
-                <groupId>org.dromara</groupId>
-                <artifactId>ruoyi-system</artifactId>
-                <version>${revision}</version>
-            </dependency>
-
-            <!-- 调度任务模块 -->
-            <dependency>
-                <groupId>org.dromara</groupId>
-                <artifactId>ruoyi-job</artifactId>
-                <version>${revision}</version>
-            </dependency>
-
-            <!-- AI业务模块 -->
-            <dependency>
-                <groupId>org.dromara</groupId>
-                <artifactId>ruoyi-ai</artifactId>
-                <version>${revision}</version>
-            </dependency>
-
-            <!-- 代码生成模块 -->
-            <dependency>
-                <groupId>org.dromara</groupId>
-                <artifactId>ruoyi-gen</artifactId>
-                <version>${revision}</version>
-            </dependency>
-
-            <!-- demo模块 -->
-            <dependency>
-                <groupId>org.dromara</groupId>
-                <artifactId>ruoyi-demo</artifactId>
-                <version>${revision}</version>
-            </dependency>
-
-            <!--  工作流模块  -->
-            <dependency>
-                <groupId>org.dromara</groupId>
-                <artifactId>ruoyi-workflow</artifactId>
-                <version>${revision}</version>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-resolver-dns-native-macos</artifactId>
+                <version>4.2.18.Final</version>
+                <classifier>osx-aarch_64</classifier>
+                <scope>runtime</scope>
             </dependency>
 
             <!--  api模块  -->

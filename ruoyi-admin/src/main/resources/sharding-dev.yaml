@@ -1,0 +1,78 @@
+databaseName: phone_msg_logic
+
+mode:
+  type: Standalone
+  repository:
+    type: JDBC
+
+props:
+  sql-show: true
+
+dataSources:
+  ds_0:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:33060/db_ss_0?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: admin123
+  ds_1:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:33060/db_ss_1?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: admin123
+  ds_2:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:33060/db_ss_2?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: admin123
+  ds_3:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:33061/db_ss_0?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: admin123
+  ds_4:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:33061/db_ss_1?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: admin123
+  ds_5:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:33061/db_ss_2?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: admin123
+
+rules:
+  - !SHARDING
+    tables:
+      intelligent_sms:
+        # 6个分库，每个库4张分表
+        actualDataNodes: 'ds_$->{0..5}.intelligent_sms_$->{0..3}'
+        # 分库策略
+        databaseStrategy:
+          standard:
+            shardingColumn: phone
+            shardingAlgorithmName: intelligent_sms_database
+        # 分表策略
+        tableStrategy:
+          standard:
+            shardingColumn: phone
+            shardingAlgorithmName: intelligent_sms_table
+
+    # 分片算法
+    shardingAlgorithms:
+      # 6个分库
+      intelligent_sms_database:
+        type: INLINE
+        props:
+          algorithm-expression: 'ds_$->{(phone as Long).intdiv(10000) % 10000 % 6}'
+      # 每个分库4张分表
+      intelligent_sms_table:
+        type: INLINE
+        props:
+          algorithm-expression: 'intelligent_sms_$->{((phone as Long) % 10000) % 4}'
+
