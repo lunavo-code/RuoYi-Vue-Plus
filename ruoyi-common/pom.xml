@@ -42,6 +42,7 @@
         <module>ruoyi-common-ai</module>
         <module>ruoyi-common-mcp</module>
         <module>ruoyi-common-shardingsphere</module>
+        <module>ruoyi-common-enum</module>
     </modules>
 
 </project>

@@ -1,11 +1,14 @@
 package org.dromara.system.controller.system;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import cn.dev33.satoken.annotation.SaIgnore;
 import cn.hutool.core.util.ObjectUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.dromara.common.core.domain.PageResult;
 import org.dromara.common.core.domain.R;
+import org.dromara.common.enums.service.FrontendEnumService;
+import org.dromara.common.enums.domain.EnumInfo;
 import org.dromara.common.excel.utils.ExcelBuilder;
 import org.dromara.common.log.annotation.Log;
 import org.dromara.common.log.enums.BusinessType;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 数据字典信息
@@ -36,6 +40,16 @@ public class SysDictDataController extends BaseController {
 
     private final ISysDictDataService dictDataService;
     private final ISysDictTypeService dictTypeService;
+    private final FrontendEnumService frontendEnumService;
+
+    /**
+     * @return 当前用户可见的前端枚举组
+     */
+    @GetMapping("/enums")
+    @SaIgnore
+    public R<Map<String, EnumInfo>> enums() {
+        return R.ok(frontendEnumService.getOptions());
+    }
 
     /**
      * 分页查询字典数据列表。

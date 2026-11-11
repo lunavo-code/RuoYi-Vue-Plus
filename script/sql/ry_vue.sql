@@ -9,7 +9,7 @@ create table sys_social
     source             varchar(255)     not null        comment '用户来源',
     open_id            varchar(255)     default null    comment '平台编号唯一id',
     user_name          varchar(30)      not null        comment '登录账号',
-    nick_name          varchar(30)      default ''      comment '用户昵称',
+    nick_name          varchar(50)      default ''      comment '用户昵称',
     email              varchar(255)     default ''      comment '用户邮箱',
     avatar             varchar(500)     default ''      comment '头像地址',
     access_token       varchar(2000)     not null       comment '用户的授权令牌',
