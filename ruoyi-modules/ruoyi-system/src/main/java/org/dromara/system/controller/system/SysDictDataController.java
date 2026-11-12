@@ -45,10 +45,21 @@ public class SysDictDataController extends BaseController {
     /**
      * @return 当前用户可见的前端枚举组
      */
-    @GetMapping("/enums")
-    @SaIgnore
+    @GetMapping("/enums/list")
     public R<Map<String, EnumInfo>> enums() {
         return R.ok(frontendEnumService.getOptions());
+    }
+
+    @GetMapping("/enums/{key}")
+    public R<EnumInfo> enumInfo(@PathVariable String key) {
+        EnumInfo option = frontendEnumService.getOption(key);
+        return R.ok(option);
+    }
+
+    @GetMapping("/enums/map")
+    public R<Map<String, String>> enumsMap() {
+        Map<String, String> map = frontendEnumService.keyMap();
+        return R.ok(map);
     }
 
     /**

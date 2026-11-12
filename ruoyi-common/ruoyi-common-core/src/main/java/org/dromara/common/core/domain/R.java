@@ -23,6 +23,9 @@ public class R<T> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    public static final String OK_MSG = "操作成功";
+    public static final String FAIL_MSG = "操作失败";
+
     /**
      * 响应状态码
      */
