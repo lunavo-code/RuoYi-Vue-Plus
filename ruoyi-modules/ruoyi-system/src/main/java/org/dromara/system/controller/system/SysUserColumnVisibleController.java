@@ -12,15 +12,20 @@ import org.springframework.web.bind.annotation.*;
 public class SysUserColumnVisibleController {
     private final ISysUserColumnVisibleService service;
 
+    /**
+     * 通过表格唯一标识查询配置
+     */
     @GetMapping("/{tableKey}")
-    public R<String> getSetting(@PathVariable String tableKey) {
-        String columnVisibility = service.getSetting(tableKey);
+    public R<Long> getSetting(@PathVariable String tableKey) {
+        Long columnVisibility = service.getSetting(tableKey);
         return R.ok(R.OK_MSG, columnVisibility);
     }
 
+    /**
+     * 更新列显隐配置
+     */
     @PutMapping("/update")
-    public R<Void> update(SysUserColumnVisibleBo bo) {
-        service.updateSetting(bo);
-        return R.ok();
+    public R<Boolean> update(SysUserColumnVisibleBo bo) {
+        return R.ok(service.updateSetting(bo));
     }
 }

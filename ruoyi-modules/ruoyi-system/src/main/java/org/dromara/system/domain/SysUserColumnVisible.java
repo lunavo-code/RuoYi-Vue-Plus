@@ -14,5 +14,5 @@ public class SysUserColumnVisible extends BaseEntity {
     private Long id;
     private Long userId;
     private String tableKey;
-    private String columnVisibility;
+    private Long columnVisibility;
 }

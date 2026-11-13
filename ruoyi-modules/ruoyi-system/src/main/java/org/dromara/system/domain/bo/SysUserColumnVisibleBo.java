@@ -1,6 +1,7 @@
 package org.dromara.system.domain.bo;
 
 import io.github.linpeilie.annotations.AutoMapper;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.dromara.system.domain.SysUserColumnVisible;
@@ -15,7 +16,8 @@ public class SysUserColumnVisibleBo implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long userId;
+    @NotNull
     private String tableKey;
-    private String columnVisibility;
+    @NotNull
+    private Long columnVisibility;
 }
