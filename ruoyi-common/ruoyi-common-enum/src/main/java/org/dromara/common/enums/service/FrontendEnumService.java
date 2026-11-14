@@ -72,14 +72,14 @@ public class FrontendEnumService {
     }
 
     public EnumInfo getOption(String key) {
-        EnumInfo enumInfo = options.get(key);
-        if (enumInfo == null) return null;
-        return hasPermission(enumInfo.getPermission()) ? enumInfo : null;
+        EnumInfo entry = options.get(key);
+        if (entry == null) return null;
+        return hasPermission(entry.getPermission()) ? entry : null;
     }
 
     public Map<String, String> keyMap() {
         return keyList.stream()
-            .filter(i -> hasPermission(i.getPermission()))
+            .filter(entry -> hasPermission(entry.getPermission()))
             .collect(Collectors.toMap(
                 EnumInfo::getKey,
                 EnumInfo::getDescription
